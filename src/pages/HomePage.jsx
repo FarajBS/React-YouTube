@@ -31,6 +31,11 @@ export default function HomePage() {
                 
             {/* Vedios Section */}
             <div className="my-10">
+                <div className="flex justify-center items-center mb-10" role="search">
+                    <input className="form-control me-2 w-full md:w-1/2" type="search" placeholder="Search" aria-label="Search" />
+                    <button className="btn btn-outline-success tex-4xl font-bold" type="submit">بحث</button>
+                </div>
+
                 <div className="flex flex-col justify-center items-center gap-y-10 flex-wrap md:flex-row md:justify-evenly md:gap-x-5 md:gap-y-10 md:items-start">
                     {video.map((element, index) => {
                         return (

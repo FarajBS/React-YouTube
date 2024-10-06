@@ -6,7 +6,7 @@ export default function SignIn() {
 
     // Variables //
     // URL For The API Database //
-    const url               = "https://66f16df8415379191550df7c.mockapi.io/users/";
+    const url               = "https://66f16df8415379191550df7c.mockapi.io/users//";
 
     // UserName //
     const [username, setUsername] = useState("");
@@ -30,8 +30,31 @@ export default function SignIn() {
     const signIn = () => {
         console.log(username)
         console.log(password)
+        let findUser    = [];
 
-        
+        fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            data.find((item) => {
+                if (  username == item.username) {
+                        findUser.push(item);
+                }
+        })});
+
+        window.location.href = "/home";
+        if (username == findUser[0].username && password == findUser[0].password) {
+            // True Password //
+            // sessionStorage //
+            sessionStorage.setItem("idForUser", findUser[0].id);
+            sessionStorage.setItem("nameForUser", findUser[0].name);
+            sessionStorage.setItem("usernameForUser", findUser[0].username);
+            sessionStorage.setItem("emailForUser", findUser[0].email);
+            sessionStorage.setItem("passForUser", findUser[0].password);
+            sessionStorage.setItem("PointsForUser", findUser[0].points);
+            
+            // Go To Home Page //
+            window.location.href = "/home";
+        }
     }
     // ------------------------------------------------------------------------------------------------------------------------------------------- //
 
@@ -105,7 +128,7 @@ export default function SignIn() {
 
     return (
         <>
-            <form className=" p-3 min-h-screen w-screen flex flex-row justify-center items-center bg-red-400">
+            <div className=" p-3 min-h-screen w-screen flex flex-row justify-center items-center bg-red-400">
                 <div className="p-4 my-3 w-full md:w-1/2 ">
 
                     
@@ -132,7 +155,7 @@ export default function SignIn() {
 
                     <span className="text-3xl font-bold text-white">ليس لديك حساب ؟ <Link to={"/signUp"} className="text-xl text-decoration-underline">سجل الآن</Link></span>
                 </div>
-            </form>
+            </div>
         </>
     )
 };

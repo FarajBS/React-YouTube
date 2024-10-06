@@ -11,6 +11,13 @@ export default function ShowVideo() {
 
     const [show, setShow] = useState([]);
     const [main, setMain] = useState([]);
+    const [post, setPost] = useState("");
+    const [all, setAll]   = useState([]);
+
+    const submit = () => {
+        setAll([post]);
+        setPost("")
+    }
 
     useEffect(()=> {
         axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&regionCode=Sa&chart=mostPopular&maxResults=50&key=AIzaSyCySTLbPbzs_-iwhdQ9DwQT382ZTC-sPdo`)
@@ -49,36 +56,38 @@ export default function ShowVideo() {
             {/* Vedios Section */}
             
             <div className="my-10">
-                <div className="container mx-auto flex flex-col justify-center items-center gap-4 md:flex-row md:items-start">
+                <div className="flex justify-center items-center mb-10" role="search">
+                    <input className="form-control me-2 w-full md:w-1/2" type="search" placeholder="Search" aria-label="Search" />
+                    <button className="btn btn-outline-success tex-4xl font-bold" type="submit">بحث</button>
+                </div>
+                <div className="container mx-auto flex flex-col  justify-center items-center gap-4 lg:flex-row lg:items-start">
                     <div className="w-full md:w-2/3 h-full">
-                        <div className="card bg-base-100 h-screen">
+                        <div className="card bg-base-100 h-full lg:h-screen">
                             <div className="h-full">
                                 <iframe className="w-full h-full"
                                     src={'https://www.youtube.com/embed/' + vidId.vidId}> 
                                 </iframe> 
                             </div>
-                            {main.map((ele, index) => {
-                                    console.log(ele.snippet.title)
-                                return (
-                                    <div key={index}>
-                                        <h2 className="text-7xl text-red-900">{ele.snippet.title}</h2>
-                                    </div>
-                                )
-                            })}
-                        
-                            <div className="card-body">
-                                <h2 className="card-title"></h2>
-                                
-                                <p>If a dog chews shoes whose shoes does he choose?</p>
-                                
-                                <div className="card-actions justify-end">
-                                    <button className="btn btn-primary">Buy Now</button>
-                                </div>
+
+                            <h2 className="text-7xl text-red-900"></h2>
+
+                        </div>
+
+                        <div className="mt-20">
+                            <h3 className="text-3xl">التعليقات</h3>
+
+                            <div className="flex justify-center items-center flex-col">
+                                <textarea onChange={(e) => {setPost(e.target.value)}} value={post} className="rounded-lg w-full p-3 my-3 text-2xl border-3 border-black" rows={5}></textarea>
+                                <button onClick={submit} className="p-2 text-white text-2xl bg-red-500">تعليق</button>
+                            </div>
+                            <div className="h-40 rounded-lg bg-gray-100 overflow-auto p-3 border-3 my-3">
+                                <h5>{all}</h5>
                             </div>
                         </div>
                     </div>
 
                     <div className="w-full md:w-1/3 h-full flex flex-col">
+                        
                         <SideVideos />
                     </div>
                 </div>

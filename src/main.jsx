@@ -1,10 +1,3 @@
-// API //
-
-// API Key:     AIzaSyCySTLbPbzs_-iwhdQ9DwQT382ZTC-sPdo
-// URL :        https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&regionCode=Sa&chart=mostPopular&maxResults=50&key=AIzaSyCySTLbPbzs_-iwhdQ9DwQT382ZTC-sPdo
-
-// API //
-
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
@@ -19,12 +12,13 @@ import ErrorPage from "./pages/ErrorPage";
 import DataYoutubeApi from "./pages/DataYoutubeApi"
 import ShowVideo from "./pages/ShowVideo";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 //=== Pages ===//
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <SignIn />,
     errorElement: <ErrorPage />
   },
   {
@@ -42,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/signIn",
     element: <SignIn />,
+  },
+  {
+    path: "/signUp",
+    element: <SignUp />,
   },
 ]);
 
